@@ -22,7 +22,7 @@
   },
   "autoload": {
     "psr-4": {
-      "PinaDateTime\\": "src/"
+      "PinaTime\\": "src/"
     }
   },
   "minimum-stability": "dev"
