@@ -8,12 +8,12 @@ use Pina\Config;
 class Date
 {
     /**
-     * @param string $date
+     * @param string|null $date
      * @param bool $useOffset
      * @return string
      * @throws \Exception
      */
-    public static function format(string $date, bool $useOffset = true)
+    public static function format(?string $date, bool $useOffset = true)
     {
         if (empty($date) || $date === '0000-00-00 00:00:00' || $date === "0000-00-00") {
             return '-';

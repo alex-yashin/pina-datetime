@@ -5,7 +5,7 @@ namespace PinaTime;
 class Helper
 {
 
-    public static function formatDatetime($date, $useOffset = true, $withTimezone = false)
+    public static function formatDatetime(?string $date, $useOffset = true, $withTimezone = false)
     {
         $fDate = Date::format($date, $useOffset);
         if ($fDate === '-') {
