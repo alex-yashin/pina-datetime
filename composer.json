@@ -1,0 +1,29 @@
+{
+  "name": "alex-yashin/pina-time",
+  "keywords": ["php"],
+  "license": "MIT",
+  "homepage": "https://github.com/alex-yashin/pina-time/",
+  "support": {
+    "issues": "https://github.com/alex-yashin/pina-time/issues",
+    "source": "https://github.com/alex-yashin/pina-time/"
+  },
+  "authors": [
+    {
+      "name": "Alex Yashin",
+      "email": "alex-yashin@ya.ru"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "pinahq/framework": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "6.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "PinaDateTime\\": "src/"
+    }
+  },
+  "minimum-stability": "dev"
+}
