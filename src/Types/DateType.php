@@ -2,6 +2,7 @@
 
 namespace PinaTime\Types;
 
+use Pina\Config;
 use PinaTime\DateTime;
 use Pina\Types\StringType;
 use Pina\Types\ValidateException;
@@ -13,9 +14,15 @@ use function Pina\__;
  */
 class DateType extends DateTimeType
 {
-    
+
     protected $userFormat = "d.m.Y";
     protected $serverFormat = 'Y-m-d H:i:s';
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->userFormat = Config::get('datetime', 'date_format') ?? 'd.m.Y';
+    }
 
     /**
      * @param mixed $date
