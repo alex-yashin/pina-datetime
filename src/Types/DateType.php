@@ -2,7 +2,9 @@
 
 namespace PinaTime\Types;
 
+use Pina\App;
 use Pina\Config;
+use PinaTime\Controls\DateTimePicker;
 use PinaTime\DateTime;
 use Pina\Types\StringType;
 use Pina\Types\ValidateException;
@@ -22,6 +24,14 @@ class DateType extends DateTimeType
     {
         parent::__construct();
         $this->userFormat = Config::get('datetime', 'date_format') ?? 'd.m.Y';
+    }
+
+    protected function makeInput()
+    {
+        /** @var DateTimePicker $input */
+        $input = App::make(DateTimePicker::class);
+        $input->setFormat("DD.MM.YYYY", true, false);
+        return $input;
     }
 
     /**
