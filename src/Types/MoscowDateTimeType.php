@@ -17,7 +17,7 @@ class MoscowDateTimeType extends DateTimeType
     public function format($date): string
     {
         if (empty($date) || $date === '0000-00-00 00:00:00' || $date === "0000-00-00") {
-            return '-';
+            return '';
         }
 
         $d = DateTime::createFromServerFormat($this->serverFormat, $date);
