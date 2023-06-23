@@ -2,6 +2,7 @@
 
 namespace PinaTime;
 
+use Exception;
 use Pina\Config;
 use \DateTime;
 
@@ -11,7 +12,7 @@ class Time
      * @param string|null $date
      * @param bool $useOffset
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public static function format(?string $date, bool $useOffset = true)
     {

@@ -6,17 +6,13 @@ namespace PinaTime\Controls;
 
 use Pina\App;
 use Pina\Controls\FormInput;
-use Pina\Language;
 use Pina\ResourceManagerInterface;
 use Pina\StaticResource\Script;
-use Pina\StaticResource\Style;
-
-use function Pina\__;
 
 class DateTimePicker extends FormInput
 {
     protected $cl = '';
-    protected $pickerFormat = '';
+    protected $format = '';
     protected $hasDate = true;
     protected $hasTime = true;
 
@@ -28,39 +24,66 @@ class DateTimePicker extends FormInput
 
     public function setFormat($format, bool $hasDate, bool $hasTime)
     {
-        $this->pickerFormat = $format;
+        $this->format = $format;
         $this->hasDate = $hasDate;
         $this->hasTime = $hasTime;
     }
 
     protected function draw()
     {
+        //https://robinherbots.github.io/Inputmask/#/documentation/datetime
         $this->resources()->append(
-            (new Script())->setSrc("https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js")
-        );
-        $this->resources()->append(
-            (new Style())->setSrc("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css")
-        );
-        $this->resources()->append(
-            (new Script())->setSrc("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/js/bootstrap-material-datetimepicker.min.js")
+            (new Script())->setSrc("/vendor/inputmask/inputmask.min.js")
         );
 
-        $pickerSettings = [
-            'format' => $this->pickerFormat,
-            'time' => $this->hasTime,
-            'date' => $this->hasDate,
-            'lang' => Language::code(),
-            'weekStart' => 1,
-            'cancelText' => __('Отмена'),
-        ];
-        $pickerSettingsJson = json_encode($pickerSettings, JSON_UNESCAPED_UNICODE);
-        $pickerSelector = '.' . $this->cl . ' input, input.' . $this->cl;
+        $format = $this->convertFormat($this->format);
 
         $this->resources()->append(
-            (new Script())->setContent("<script>$('$pickerSelector').bootstrapMaterialDatePicker($pickerSettingsJson)</script>")
+            (new Script())->setContent(
+                '<script>Inputmask("datetime", { inputFormat: "'.$format.'" }).mask(document.querySelectorAll(".' . $this->cl . ' input"));</script>'
+            )
         );
 
         return parent::draw();
+    }
+
+    protected function convertFormat($format)
+    {
+        $symbols = str_split($format);
+        $r = '';
+        foreach ($symbols as $symbol) {
+            $r .= $this->convertFormatSymbol($symbol);
+        }
+        return $r;
+    }
+
+    protected function convertFormatSymbol($s)
+    {
+        switch ($s) {
+            case 'j': return 'd';
+            case 'd': return 'dd';
+            case 'D': return 'ddd';
+            case 'w': return 'dddd';
+
+            //months
+            case 'n': return 'm';
+            case 'm': return 'mm';
+            case 'M': return 'mmm';
+            case 'F': return 'mmmm';
+
+            //year
+            case 'y': return 'yy';
+            case 'Y': return 'yyyy';
+
+            //hours 24 format only now
+            case 'G': return 'H';
+            case 'H': return 'HH';
+
+            case 'i': return 'MM';
+            case 's': return 'ss';
+        }
+
+        return $s;
     }
 
     /**

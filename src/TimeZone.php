@@ -4,6 +4,7 @@ namespace PinaTime;
 
 use \DateTime;
 use \DateTimeZone;
+use Exception;
 use Pina\App;
 
 class TimeZone
@@ -30,7 +31,7 @@ class TimeZone
      * @param string $date
      * @param string $userTimezone
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public static function convertServerTimezoneDateToUserTimezone(string $date, string $userTimezone): string
     {

@@ -30,7 +30,7 @@ class DateTimeDateType extends DateTimeType
     {
         /** @var DateTimePicker $input */
         $input = App::make(DateTimePicker::class);
-        $input->setFormat("DD.MM.YYYY", true, false);
+        $input->setFormat($this->userFormat, true, false);
         return $input;
     }
 
@@ -77,7 +77,7 @@ class DateTimeDateType extends DateTimeType
         $d->setTime(0, 0, 0, 0);
         $d->setServerTimeZone();
         $begin = $d->format($this->serverFormat);
-        $end = $d->modify('+1 day')->format($this->serverFormat);;
+        $end = $d->modify('+1 day')->format($this->serverFormat);
 
         $query->whereBetween($fields, $begin, $end);
     }

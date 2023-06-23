@@ -2,6 +2,7 @@
 
 namespace PinaTime\Types;
 
+use Exception;
 use Pina\App;
 use Pina\Config;
 use PinaTime\Controls\DateTimePicker;
@@ -30,14 +31,14 @@ class DateType extends DateTimeType
     {
         /** @var DateTimePicker $input */
         $input = App::make(DateTimePicker::class);
-        $input->setFormat("DD.MM.YYYY", true, false);
+        $input->setFormat($this->userFormat, true, false);
         return $input;
     }
 
     /**
      * @param mixed $date
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function format($date): string
     {

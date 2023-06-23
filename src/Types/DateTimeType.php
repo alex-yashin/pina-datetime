@@ -39,7 +39,7 @@ class DateTimeType extends StringType
     {
         /** @var DateTimePicker $input */
         $input = App::make(DateTimePicker::class);
-        $input->setFormat("DD.MM.YYYY HH:mm:ss", true, true);
+        $input->setFormat($this->userFormat, true, true);
         return $input;
     }
 
