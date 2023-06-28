@@ -54,9 +54,19 @@ class DateTimeType extends StringType
         return $d->format($this->userFormat);
     }
 
-    public function isNullable()
+    public function isNullable(): bool
     {
         return true;
+    }
+
+    public function isSearchable(): bool
+    {
+        return false;
+    }
+
+    public function isFiltrable(): bool
+    {
+        return false;
     }
 
     public function getDefault()
@@ -80,7 +90,7 @@ class DateTimeType extends StringType
         return $d->format($this->serverFormat);
     }
 
-    public function getSQLType()
+    public function getSQLType(): string
     {
         return "timestamp";
     }

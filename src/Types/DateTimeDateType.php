@@ -48,16 +48,16 @@ class DateTimeDateType extends DateTimeType
     {
         /** @var DateTime $d */
         $d = DateTime::createFromUserFormat($this->userFormat, $value);
-        $d->setTime(0, 0, 0, 0);
         if (empty($d)) {
             throw new ValidateException(__("Укажите корректную дату"));
         }
+        $d->setTime(0, 0, 0, 0);
         $d->setServerTimeZone();
 
         return $d;
     }
 
-    public function getSQLType()
+    public function getSQLType(): string
     {
         return "datetime";
     }

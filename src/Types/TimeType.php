@@ -25,7 +25,7 @@ class TimeType extends DateTimeType
         return $input;
     }
 
-    public function getSQLType()
+    public function getSQLType(): string
     {
         return "time";
     }

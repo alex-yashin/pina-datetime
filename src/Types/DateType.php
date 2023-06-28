@@ -66,7 +66,7 @@ class DateType extends DateTimeType
         return $d->format($this->serverFormat);
     }
 
-    public function getSQLType()
+    public function getSQLType(): string
     {
         return "date";
     }
