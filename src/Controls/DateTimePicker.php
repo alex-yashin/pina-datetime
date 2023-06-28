@@ -6,8 +6,6 @@ namespace PinaTime\Controls;
 
 use Pina\App;
 use Pina\Controls\FormInput;
-use Pina\ResourceManagerInterface;
-use Pina\StaticResource\Script;
 
 class DateTimePicker extends FormInput
 {
@@ -32,16 +30,12 @@ class DateTimePicker extends FormInput
     protected function draw()
     {
         //https://robinherbots.github.io/Inputmask/#/documentation/datetime
-        $this->resources()->append(
-            (new Script())->setSrc("/vendor/inputmask/inputmask.min.js")
-        );
+        App::assets()->addScript("/vendor/inputmask/inputmask.min.js");
 
         $format = $this->convertFormat($this->format);
 
-        $this->resources()->append(
-            (new Script())->setContent(
-                '<script>Inputmask("datetime", { inputFormat: "'.$format.'" }).mask(document.querySelectorAll(".' . $this->cl . ' input"));</script>'
-            )
+        App::assets()->addScriptContent(
+            '<script>Inputmask("datetime", { inputFormat: "' . $format . '" }).mask(document.querySelectorAll(".' . $this->cl . ' input"));</script>'
         );
 
         return parent::draw();
@@ -60,39 +54,43 @@ class DateTimePicker extends FormInput
     protected function convertFormatSymbol($s)
     {
         switch ($s) {
-            case 'j': return 'd';
-            case 'd': return 'dd';
-            case 'D': return 'ddd';
-            case 'w': return 'dddd';
+            case 'j':
+                return 'd';
+            case 'd':
+                return 'dd';
+            case 'D':
+                return 'ddd';
+            case 'w':
+                return 'dddd';
 
             //months
-            case 'n': return 'm';
-            case 'm': return 'mm';
-            case 'M': return 'mmm';
-            case 'F': return 'mmmm';
+            case 'n':
+                return 'm';
+            case 'm':
+                return 'mm';
+            case 'M':
+                return 'mmm';
+            case 'F':
+                return 'mmmm';
 
             //year
-            case 'y': return 'yy';
-            case 'Y': return 'yyyy';
+            case 'y':
+                return 'yy';
+            case 'Y':
+                return 'yyyy';
 
             //hours 24 format only now
-            case 'G': return 'H';
-            case 'H': return 'HH';
+            case 'G':
+                return 'H';
+            case 'H':
+                return 'HH';
 
-            case 'i': return 'MM';
-            case 's': return 'ss';
+            case 'i':
+                return 'MM';
+            case 's':
+                return 'ss';
         }
 
         return $s;
     }
-
-    /**
-     *
-     * @return ResourceManagerInterface
-     */
-    protected function resources()
-    {
-        return App::container()->get(ResourceManagerInterface::class);
-    }
-
 }
