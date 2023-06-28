@@ -25,14 +25,14 @@ class DateTime extends \DateTime
 
     public function formatAsDate()
     {
-        $f = Config::get('datetime', 'format_date') ?? "d.m.Y";
+        $f = Config::get('datetime', 'date_format') ?? "d.m.Y";
         return $this->format($f);
     }
-    
+
     public function formatAsDateTime()
     {
-        $fDate = Config::get('datetime', 'format_date') ?? "d.m.Y";
-        $fTime = Config::get('datetime', 'format_time') ?? "H:i:s";
+        $fDate = Config::get('datetime', 'date_format') ?? "d.m.Y";
+        $fTime = Config::get('datetime', 'time_format') ?? "H:i:s";
         return $this->format($fDate.' '.$fTime);
     }
 
