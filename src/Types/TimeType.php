@@ -21,7 +21,7 @@ class TimeType extends DateTimeType
     {
         /** @var DateTimePicker $input */
         $input = App::make(DateTimePicker::class);
-        $input->setFormat("H:mm:ss", false, true);
+        $input->setFormat($this->userFormat, false, true);
         return $input;
     }
 
